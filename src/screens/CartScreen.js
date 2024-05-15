@@ -2,23 +2,28 @@ import React, {useContext} from 'react';
 import {View, Text, FlatList, StyleSheet} from 'react-native';
 import {CartContext} from '../context/CartContext';
 import colors from '../theme/colors';
-
+import Card from '../shared/Card';
+import {calculateTotalQuantity} from '../helper/calculateTotalQuantity';
+import {calculateTotalAmount} from '../helper/calculateTotalAmount';
 const CartScreen = () => {
   const {cart} = useContext(CartContext);
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Cart</Text>
+      <Text style={{color: colors.primary_dark}}>
+        Total: ${calculateTotalAmount(cart)}
+      </Text>
       {/* FlatList to display cart items (item's name , item's quantity) */}
       {cart.length ? (
         <FlatList
           data={cart}
           keyExtractor={item => item.id.toString()}
           renderItem={({item}) => (
-            <View style={styles.cartItem}>
+            <Card>
               <Text style={styles.name}>{item.name}</Text>
               <Text style={styles.quantity}>Quantity: {item.quantity}</Text>
-            </View>
+            </Card>
           )}
         />
       ) : (
@@ -41,22 +46,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  cartItem: {
-    padding: 20,
-    marginHorizontal: 5,
-    marginVertical: 10,
-    backgroundColor: '#f8f8f8',
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 5,
-  },
   name: {
     fontSize: 18,
     fontWeight: 'bold',
     color: colors.primary_dark,
-
   },
   quantity: {
     fontSize: 16,

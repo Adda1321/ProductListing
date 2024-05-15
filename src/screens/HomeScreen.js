@@ -6,7 +6,7 @@ import AddProductModal from '../components/AddProductModal';
 import initialProducts from '../data/products';
 import CustomButton from '../shared/CustomButton';
 import colors from '../theme/colors';
-import { calculateTotalQuantity } from '../helper/calculateTotalQuantity';
+import {calculateTotalQuantity} from '../helper/calculateTotalQuantity';
 
 const HomeScreen = ({navigation}) => {
   // using the cart from the context directly

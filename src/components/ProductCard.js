@@ -1,29 +1,19 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import {View, Text, Button, StyleSheet} from 'react-native';
 import CustomButton from '../shared/CustomButton';
+import Card from '../shared/Card';
 
-const ProductCard = ({ product, onPress }) => {
+const ProductCard = ({product, onPress}) => {
   return (
-    <View style={styles.card}>
+    <Card>
       <Text style={styles.name}>{product.name}</Text>
       <Text style={styles.price}>${product.price.toFixed(2)}</Text>
       <CustomButton title="View Details" onPress={() => onPress(product)} />
-    </View>
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    marginHorizontal:5,
-    padding: 20,
-    marginVertical: 10,
-    backgroundColor: '#f8f8f8',
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 5,
-  },
   name: {
     fontSize: 18,
     fontWeight: 'bold',
