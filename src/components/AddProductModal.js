@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
-import { Modal, View, TextInput, Button, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import {Modal, View, TextInput, Button, StyleSheet} from 'react-native';
+import CustomButton from '../shared/CustomButton';
+import colors from '../theme/colors';
 
-const AddProductModal = ({ visible, onClose, onAddProduct }) => {
+const AddProductModal = ({visible, onClose, onAddProduct}) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
 
   const handleAddProduct = () => {
-    onAddProduct({ id: Date.now(), name, price: parseFloat(price) });
+    onAddProduct({id: Date.now(), name, price: parseFloat(price)});
     setName('');
     setPrice('');
     onClose();
   };
 
   return (
-    <Modal visible={visible} animationType="slide" transparent={true}>
+    <Modal
+      style={{}}
+      visible={visible}
+      animationType="slide"
+      transparent={true}>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <TextInput
@@ -29,8 +35,17 @@ const AddProductModal = ({ visible, onClose, onAddProduct }) => {
             keyboardType="numeric"
             style={styles.input}
           />
-          <Button title="Add Product" onPress={handleAddProduct} />
-          <Button title="Cancel" onPress={onClose} />
+          <View
+            style={{
+              marginVertical: 20,
+            }}>
+            <CustomButton
+              title="Add Product"
+              onPress={handleAddProduct}
+              color={colors.primary_dark}
+            />
+          </View>
+          <CustomButton title="Cancel" onPress={onClose} />
         </View>
       </View>
     </Modal>
@@ -45,7 +60,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalContent: {
-    width: 300,
+    justifyContent: 'center',
+    width: '80%',
+    minHeight: 300,
     padding: 20,
     backgroundColor: 'white',
     borderRadius: 10,

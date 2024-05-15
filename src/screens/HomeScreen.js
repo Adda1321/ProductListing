@@ -4,6 +4,9 @@ import {CartContext} from '../context/CartContext';
 import ProductCard from '../components/ProductCard';
 import AddProductModal from '../components/AddProductModal';
 import initialProducts from '../data/products';
+import CustomButton from '../shared/CustomButton';
+import colors from '../theme/colors';
+import { calculateTotalQuantity } from '../helper/calculateTotalQuantity';
 
 const HomeScreen = ({navigation}) => {
   // using the cart from the context directly
@@ -14,10 +17,20 @@ const HomeScreen = ({navigation}) => {
   const addProduct = newProduct => {
     setProducts(prevProducts => [...prevProducts, newProduct]);
   };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Products</Text>
+      <View style={styles.headingContainer}>
+        <Text style={styles.header}>Products</Text>
+        {/* Button to open the AddProductModal */}
+        <View style={styles.addButton}>
+          <CustomButton
+            color={colors.primary_dark}
+            title="Add Product"
+            onPress={() => setIsModalVisible(true)}
+          />
+        </View>
+      </View>
+
       {/* Displaying the list of products */}
       <FlatList
         data={products}
@@ -32,22 +45,20 @@ const HomeScreen = ({navigation}) => {
         )}
       />
       {/* Button to navigate to the cart screen */}
-      <View style={styles.cartContainer}>
-        <Button
-          title={`Cart (${cart.length})`}
-          onPress={() => navigation.navigate('Cart')}
+      <CustomButton
+        style={styles.cartContainer}
+        color={colors.primary_dark}
+        title={`View Cart (${calculateTotalQuantity(cart)})`}
+        onPress={() => navigation.navigate('Cart')}
+      />
+      {/* Modal to add a new product */}
+      <View>
+        <AddProductModal
+          visible={isModalVisible}
+          onClose={() => setIsModalVisible(false)}
+          onAddProduct={addProduct}
         />
       </View>
-      {/* Button to open the AddProductModal */}
-      <View style={styles.addButton}>
-        <Button title="Add Product" onPress={() => setIsModalVisible(true)} />
-      </View>
-      {/* Modal to add a new product */}
-      <AddProductModal
-        visible={isModalVisible}
-        onClose={() => setIsModalVisible(false)}
-        onAddProduct={addProduct}
-      />
     </View>
   );
 };
@@ -55,20 +66,26 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background_screen,
+
     padding: 20,
+  },
+  headingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: 5,
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  cartContainer: {
-    marginTop: 20,
-    alignItems: 'center',
   },
   addButton: {
-    marginTop: 20,
-    alignItems: 'center',
+    marginRight: 10,
+  },
+
+  cartContainer: {
+    marginTop: 10,
   },
 });
 
