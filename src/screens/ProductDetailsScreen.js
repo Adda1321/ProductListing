@@ -1,13 +1,13 @@
 import React, {useContext} from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {CartContext} from '../context/CartContext';
-import {calculateTotalQuantity} from '../helper/calculateTotalQuantity';
 import CustomButton from '../shared/CustomButton';
+import ViewCartButton from '../shared/ViewCartButton';
 import colors from '../theme/colors';
 const ProductDetailsScreen = ({route, navigation}) => {
   // Destructure product from route parameters
   const {product} = route.params;
-  const {addToCart, cart} = useContext(CartContext);
+  const {addToCart} = useContext(CartContext);
 
   return (
     <View style={styles.container}>
@@ -19,14 +19,10 @@ const ProductDetailsScreen = ({route, navigation}) => {
           title="Add to Cart"
           onPress={() => addToCart(product)}
           style={styles.addButton}
+          id="add-to-cart-button"
         />
-
         {/* CustomButton component to navigate to the cart screen */}
-        <CustomButton
-          color={colors.primary_dark}
-          title={`View Cart (${calculateTotalQuantity(cart)})`}
-          onPress={() => navigation.navigate('Cart')}
-        />
+        <ViewCartButton navigation={navigation} />
       </View>
     </View>
   );

@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import {Modal, View, TextInput, Button, StyleSheet} from 'react-native';
+import {Modal, View, TextInput, StyleSheet} from 'react-native';
 import CustomButton from '../shared/CustomButton';
 import colors from '../theme/colors';
 
 const AddProductModal = ({visible, onClose, onAddProduct}) => {
   const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0);
 
   const handleAddProduct = () => {
     onAddProduct({id: Date.now(), name, price: parseFloat(price)});
@@ -40,7 +40,8 @@ const AddProductModal = ({visible, onClose, onAddProduct}) => {
               marginVertical: 20,
             }}>
             <CustomButton
-              title="Add Product"
+              disabled={name ? false : true}
+              title="Save Product"
               onPress={handleAddProduct}
               color={colors.primary_dark}
             />

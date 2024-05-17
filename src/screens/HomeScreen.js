@@ -1,12 +1,12 @@
 import React, {useContext, useState} from 'react';
-import {View, Text, FlatList, StyleSheet, Button} from 'react-native';
+import {View, Text, FlatList, StyleSheet} from 'react-native';
 import {CartContext} from '../context/CartContext';
 import ProductCard from '../components/ProductCard';
 import AddProductModal from '../components/AddProductModal';
 import initialProducts from '../data/products';
 import CustomButton from '../shared/CustomButton';
 import colors from '../theme/colors';
-import {calculateTotalQuantity} from '../helper/calculateTotalQuantity';
+import ViewCartButton from '../shared/ViewCartButton';
 
 const HomeScreen = ({navigation}) => {
   // using the cart from the context directly
@@ -44,13 +44,9 @@ const HomeScreen = ({navigation}) => {
           />
         )}
       />
-      {/* Button to navigate to the cart screen */}
-      <CustomButton
-        style={styles.cartContainer}
-        color={colors.primary_dark}
-        title={`View Cart (${calculateTotalQuantity(cart)})`}
-        onPress={() => navigation.navigate('Cart')}
-      />
+
+      <ViewCartButton navigation={navigation} />
+
       {/* Modal to add a new product */}
       <View>
         <AddProductModal
@@ -82,10 +78,6 @@ const styles = StyleSheet.create({
   },
   addButton: {
     marginRight: 10,
-  },
-
-  cartContainer: {
-    marginTop: 10,
   },
 });
 

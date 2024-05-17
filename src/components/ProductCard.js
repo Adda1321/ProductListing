@@ -6,8 +6,8 @@ import Card from '../shared/Card';
 const ProductCard = ({product, onPress}) => {
   return (
     <Card>
-      <Text style={styles.name}>{product.name}</Text>
-      <Text style={styles.price}>${product.price.toFixed(2)}</Text>
+       <Text style={styles.name} testID={`productName-${product.id}`}>{product.name}</Text>
+      <Text style={styles.price} testID={`productPrice-${product.id}`}>${product.price.toFixed(2)}</Text>
       <CustomButton title="View Details" onPress={() => onPress(product)} />
     </Card>
   );
